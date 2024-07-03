@@ -8,7 +8,8 @@ import { TripService } from '@/services/trip.service';
 export class TripController {
   constructor(@inject(TYPES.TripService) private readonly tripService: TripService) {}
   public getTrips = async (req: Request, res: Response) => {
-    const trips = await this.tripService.getTrips({});
+    console.log(req.query);
+    const trips = await this.tripService.getTrips(req.query);
     res.json(trips);
   };
 

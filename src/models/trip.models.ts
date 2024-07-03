@@ -14,3 +14,7 @@ export interface TripQuery {
   limit?: number;
   offset?: number;
 }
+
+export interface TripResponse {
+  trips: Trip[];
+}
