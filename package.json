@@ -19,13 +19,18 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "envalid": "^8.0.0",
     "express": "^4.19.2",
     "helmet": "^7.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "http-status-codes": "^2.3.0",
+    "inversify": "^6.0.2",
     "pino-http": "^10.0.0",
+    "reflect-metadata": "^0.2.2",
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
@@ -33,6 +38,7 @@
     "@commitlint/config-conventional": "^19.1.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/inversify": "^2.0.33",
     "@types/supertest": "^6.0.2",
     "@types/swagger-ui-express": "^4.1.6",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
