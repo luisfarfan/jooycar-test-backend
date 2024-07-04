@@ -5,6 +5,12 @@ import { CreateTripDto } from '@/dto/create-trip.dto';
 import { TripQueryParamsDto } from '@/dto/trip-query-params.dto';
 import { mapTripDocumentToTrip } from '@/mappers/trip.mappers';
 import TripModel from '@/schemas/trip.schema';
+import {
+  calculateDistanceByReadings,
+  calculateOverSpeedsCount,
+  getStartAndEndFromReadings,
+  mapToBoundingBox,
+} from '@/utils/utils';
 
 @injectable()
 export class TripService {
@@ -37,7 +43,27 @@ export class TripService {
     return { filters, limit, offset };
   }
 
-  async createTrip(tripData: CreateTripDto[]) {
-    return tripData;
+  async createTrip(tripData: CreateTripDto) {
+    const readings = tripData.readings;
+    const { start, end, duration } = await getStartAndEndFromReadings(readings);
+    const distance = calculateDistanceByReadings(readings);
+    const boundingBox = mapToBoundingBox(readings);
+    const overspeedsCount = calculateOverSpeedsCount(readings);
+    const trip = new TripModel({
+      start_time: start.time,
+      start_lat: start.lat,
+      start_lon: start.lon,
+      start_address: start.address,
+      end_time: end.time,
+      end_lat: end.lat,
+      end_lon: end.lon,
+      end_address: end.address,
+      distance,
+      duration,
+      overspeedsCount,
+      boundingBox,
+    });
+    await trip.save();
+    return mapTripDocumentToTrip(trip);
   }
 }

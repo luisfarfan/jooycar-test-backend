@@ -1,4 +1,5 @@
 import { Model, model, Schema } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Coordinates, TripDocument } from '@/models/trip.models';
 
@@ -10,7 +11,7 @@ const CoordinatesSchema = new Schema<Coordinates>({
 type TripModel = Model<TripDocument, NonNullable<unknown>>;
 
 const tripSchema = new Schema<TripDocument>({
-  id: { type: String, required: true },
+  id: { type: String, default: uuidv4, unique: true },
   start_time: { type: Number, required: true },
   start_lat: { type: Number, required: true },
   start_lon: { type: Number, required: true },

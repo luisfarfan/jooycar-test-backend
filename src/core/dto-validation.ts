@@ -14,6 +14,7 @@ export function validatePostDto<T extends object>(Dto: ClassConstructor<T>) {
     const dtoObj = plainToInstance(Dto, req.body, {
       enableImplicitConversion: true,
     });
+    console.log(dtoObj);
 
     const errors = await validate(dtoObj);
     if (errors.length > 0) {

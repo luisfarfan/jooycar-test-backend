@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "declaration": true,
     "moduleResolution": "Node",
     "outDir": "dist",
     "importsNotUsedAsValues": "remove",
@@ -17,7 +18,9 @@
     "ignoreDeprecations": "5.0",
     "types": ["vitest/globals"],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "incremental": true
   },
   "extends": [],
   "exclude": ["node_modules"],
