@@ -10,7 +10,9 @@ import {
   calculateOverSpeedsCount,
   getStartAndEndFromReadings,
   mapToBoundingBox,
+  moveCoordinateSlightly,
 } from '@/utils/utils';
+import createTripMock from '@/mock/create-trip.mock';
 
 @injectable()
 export class TripService {
@@ -65,5 +67,17 @@ export class TripService {
     });
     await trip.save();
     return mapTripDocumentToTrip(trip);
+  }
+
+  async createInitTripsData() {
+    const createTripDto = createTripMock as CreateTripDto;
+    const movedCoordinatesCreateTrip = createTripDto.readings.map((reading) => {
+      const newLocation = moveCoordinateSlightly(reading.location.lat, reading.location.lon);
+      return {
+        ...reading,
+        location: newLocation,
+      };
+    });
+    await this.createTrip({ readings: movedCoordinatesCreateTrip });
   }
 }

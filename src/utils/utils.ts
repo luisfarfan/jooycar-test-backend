@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getDistance } from 'geolib';
 
-import { ReadingDto } from '@/dto/create-trip.dto';
+import { CreateTripDto, ReadingDto } from '@/dto/create-trip.dto';
 import { Coordinates } from '@/models/trip.models';
 
 export const getAddressFromLatLng = async (lat: number, lon: number): Promise<string> => {
@@ -68,4 +68,15 @@ export const mapToBoundingBox = (readings: ReadingDto[]): Coordinates[] => {
     lat: reading.location.lat,
     lon: reading.location.lon,
   }));
+};
+
+const getRandomOffset = (range: number) => (Math.random() - 0.5) * range;
+export const moveCoordinateSlightly = (lat: number, lon: number, range: number = 0.0001) => {
+  const latOffset = getRandomOffset(range);
+  const lonOffset = getRandomOffset(range);
+
+  return {
+    lat: lat + latOffset,
+    lon: lon + lonOffset,
+  };
 };

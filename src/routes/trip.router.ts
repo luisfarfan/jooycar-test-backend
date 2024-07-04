@@ -14,4 +14,6 @@ router.get('/', validateQueryDto(TripQueryParamsDto), tripController.getTrips);
 
 router.post('/', validatePostDto(CreateTripDto), tripController.createTrip);
 
+router.post('/random', tripController.createInitTripsData);
+
 export default router;

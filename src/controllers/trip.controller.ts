@@ -19,4 +19,9 @@ export class TripController {
     const newTrip = await this.tripService.createTrip(trip);
     res.status(201).json(newTrip);
   };
+
+  public createInitTripsData = async (req: Request, res: Response) => {
+    await this.tripService.createInitTripsData();
+    res.status(201).json({ message: 'Initial trips data' });
+  };
 }
