@@ -1,11 +1,13 @@
 import { injectable } from 'inversify';
 import mongoose from 'mongoose';
+import * as process from 'process';
 
 @injectable()
 export class MongooseClient {
-  protected mongooseUri = 'mongodb://localhost:27017/jooycar-db';
+  protected mongooseUri = process.env.MONGODB_URI;
 
   async connect() {
+    console.log(this.mongooseUri);
     try {
       await mongoose.connect(this.mongooseUri);
       console.log('Connected to MongoDB');

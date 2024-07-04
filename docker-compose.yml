@@ -9,5 +9,26 @@ services:
     volumes:
       - mongo-data:/data/db
 
+  app:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+        PORT: 8080
+        HOST: localhost
+        JOOYCAR_API_URL: https://virtserver.swaggerhub.com/CONTABILIDAD/JooycarTest/1.0.0/api/trips/v1
+        MONGODB_URI: mongodb://mongodb:27017/jooycar-db
+    container_name: app
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/jooycar-db
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mongodb
+
 volumes:
   mongo-data:

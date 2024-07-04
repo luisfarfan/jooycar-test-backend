@@ -1,8 +1,11 @@
 import 'reflect-metadata';
 
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import { pino } from 'pino';
+
+dotenv.config();
 
 import tripRoute from '@/routes/trip.router';
 

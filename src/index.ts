@@ -9,9 +9,10 @@ import { app, logger } from '@/server';
 
 const mongooseClient = container.get<MongooseClient>(TYPES.MongooseClient);
 
-const server = app.listen(3001, async () => {
-  logger.info(`Server  running on port http://localhost:3001`);
+const PORT = process.env.PORT || 3001;
 
+const server = app.listen(PORT, async () => {
+  logger.info(`Server  running on port http://localhost:${PORT}`);
   await mongooseClient.connect();
 });
 
