@@ -1,13 +1,23 @@
+import 'reflect-metadata';
+
 import * as process from 'process';
 
+import container from '@/core/inversify.config';
+import TYPES from '@/core/inversify.types';
+import { MongooseClient } from '@/core/mongoose';
 import { app, logger } from '@/server';
 
-const server = app.listen(3000, () => {
-  logger.info(`Server  running on port http://localhost:3000`);
+const mongooseClient = container.get<MongooseClient>(TYPES.MongooseClient);
+
+const server = app.listen(3001, async () => {
+  logger.info(`Server  running on port http://localhost:3001`);
+
+  await mongooseClient.connect();
 });
 
-const onCloseSignal = () => {
+const onCloseSignal = async () => {
   logger.info('sigint received, shutting down');
+  await mongooseClient.getInstance().disconnect?.();
   server.close(() => {
     logger.info('server closed');
     process.exit();
