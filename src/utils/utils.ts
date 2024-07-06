@@ -9,7 +9,7 @@ export const getAddressFromLatLng = async (lat: number, lon: number): Promise<st
   const config = {
     params: {
       latlng: `${lat},${lon}`,
-      key: 'REMOVED_API_KEY',
+      key: 'AIzaSyDPTscAS2Mq6yNvJlQKtQk3zQ2d6VI24ao',
     },
   };
   const response = await axios.get(uri, config);
